@@ -14,21 +14,25 @@
 
 package org.ecorous.cobalt.mixin;
 
+import com.mojang.authlib.minecraft.BanDetails;
 import net.minecraft.client.CloudStatus;
 import org.ecorous.cobalt.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
+import org.ecorous.cobalt.platform.CommonClass;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 
 @Mixin(Minecraft.class)
-public class MixinMinecraft {
-    
+public abstract class MixinMinecraft {
+
     @Inject(at = @At("TAIL"), method = "<init>")
     private void init(CallbackInfo info) {
         
@@ -38,6 +42,7 @@ public class MixinMinecraft {
 
     @Redirect(method = "runTick", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;fpsString:Ljava/lang/String;"))
     public void cobalt$wawa(Minecraft instance, String value) {
-        instance.fpsString = value.replaceAll(instance.getFps() + " fps", (instance.getFps() * 2) + " fps");
+        int multiplier = CommonClass.config.getLeft().fpsMultiplier.get();
+        instance.fpsString = value.replaceAll(instance.getFps() + " fps", (instance.getFps() * multiplier) + " fps");
     }
 }
