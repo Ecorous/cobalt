@@ -21,7 +21,7 @@ import net.neoforged.fml.config.ModConfig
 import org.ecorous.cobalt.platform.CommonClass
 
 @Mod(Constants.MOD_ID)
-class CalciumMod(eventBus: IEventBus?) {
+class CobaltMod(eventBus: IEventBus?) {
     init {
         // This method is invoked by the NeoForge mod loader when it is ready
         // to load your mod. You can access NeoForge and Common code in this
@@ -29,7 +29,7 @@ class CalciumMod(eventBus: IEventBus?) {
 
         // Use NeoForge to bootstrap the Common mod.
         CommonClass.setupConfig()
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, CommonClass.config.right)
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CommonClass.config.right)
         Constants.LOG.info("Hello NeoForge world!")
         CommonClass.init()
     }

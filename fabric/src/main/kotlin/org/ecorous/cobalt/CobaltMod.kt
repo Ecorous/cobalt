@@ -30,6 +30,6 @@ object CobaltMod : ModInitializer {
         Constants.LOG.info("Hello Fabric world!")
         CommonClass.setupConfig()
         CommonClass.init()
-        NeoForgeConfigRegistry.INSTANCE.register(Constants.MOD_ID, ModConfig.Type.SERVER, CommonClass.config.right)
+        NeoForgeConfigRegistry.INSTANCE.register(Constants.MOD_ID, ModConfig.Type.CLIENT, CommonClass.config.right)
     }
 }
